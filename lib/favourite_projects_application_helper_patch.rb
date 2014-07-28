@@ -19,6 +19,7 @@ module FavouriteProjectsApplicationHelperPatch
 	if projects.any? or favourites.any?
 	  options =
 	    ("<option value=''>#{ l(:label_jump_to_a_project) }</option>" +
+	     "<option value='/favourite_projects/index'>#{l('favourite_projects.views.index.title')}</option>" +
 	     "<optgroup label=\"#{ l('favourite_projects.chosen_jump_box.favourite_group')}\">").html_safe
 	  options << project_tree_options_for_select(favourites, :selected => @project) do |p|
 	    { :value => project_path(:id => p, :jump => current_menu_item) }
@@ -31,7 +32,7 @@ module FavouriteProjectsApplicationHelperPatch
 	    { :value => project_path(:id => p, :jump => current_menu_item) }
 	  end
 
-	  select_tag('project_quick_jump_box', options, :onchange => 'if (this.value != \'\') { window.location = this.value; }')
+	  select_tag('project_quick_jump_box', options, :onchange => 'if (this.value != \'\') { window.location = this.value; }', :class => '')
 	end
       else
         render_project_jump_box_without_favourite_projects
